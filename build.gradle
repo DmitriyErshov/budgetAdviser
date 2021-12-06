@@ -1,0 +1,52 @@
+plugins {
+  id 'java'
+}
+
+ext {
+  bootVer = "2.3.1.RELEASE"
+  junitVer = "5.6.2"
+  mockitoVer = "3.4.0"
+}
+
+allprojects {
+  apply plugin: "java"
+
+  group 'ru.relex'
+  version '1.0-SNAPSHOT'
+
+  repositories {
+    mavenCentral()
+  }
+
+  java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+  }
+  dependencies {
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVer"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:$junitVer"
+    testImplementation "org.mockito:mockito-junit-jupiter:$mockitoVer"
+    testImplementation "org.mockito:mockito-core:$mockitoVer"
+    testImplementation "org.springframework.boot:spring-boot-test:$bootVer"
+    testImplementation "org.springframework:spring-test:5.+"
+
+
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:$junitVer"
+
+  }
+  test {
+    useJUnitPlatform()
+  }
+}
+
+dependencies {
+
+  implementation(project(":commons"))
+  implementation(project(":services"))
+  implementation(project(":security"))
+  implementation "org.springframework.boot:spring-boot-starter-web:$bootVer"
+  implementation "org.springframework:spring-web:5.2.7.RELEASE"
+  implementation "org.springframework.security:spring-security-core:5.3.3.RELEASE"
+  implementation "javax.validation:validation-api:2.0.1.Final"
+  implementation 'com.google.code.gson:gson:2.2.4'
+}

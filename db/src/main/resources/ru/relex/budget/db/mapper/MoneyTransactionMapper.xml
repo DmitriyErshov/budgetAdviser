@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ru.relex.budget.db.mapper.MoneyTransactionMapper">
+
+  <select id="createTransaction"
+          parameterType="ru.relex.budget.db.model.TransactionModel"
+          resultType="ru.relex.budget.db.model.TransactionModel">
+    INSERT INTO money_transactions (name, createdBy, group_id, amount, category_id)
+    VALUES (#{name}, #{createdBy}, #{groupId}, #{amount}, #{categoryId})
+    RETURNING transaction_id AS id, created_at
+  </select>
+
+  <select id="isTransactionExists"
+          parameterType="long"
+          resultType="boolean">
+    SELECT CASE WHEN EXISTS (
+      SELECT transaction_id
+      FROM money_transactions
+      WHERE transaction_id = #{id}
+      )
+      THEN CAST(1 AS BIT)
+      ELSE CAST(0 AS BIT) END
+  </select>
+
+
+  <insert id="createRowsInMoneyExpenditure"
+          parameterType = "map">
+       INSERT INTO month_expenditure (created_at, group_id, category_id)
+       VALUES (#{createdAt}, #{groupId}, 1),
+              (#{createdAt}, #{groupId}, 2),
+              (#{createdAt}, #{groupId}, 3),
+              (#{createdAt}, #{groupId}, 4),
+              (#{createdAt}, #{groupId}, 5),
+              (#{createdAt}, #{groupId}, 6),
+              (#{createdAt}, #{groupId}, 7),
+              (#{createdAt}, #{groupId}, 8),
+              (#{createdAt}, #{groupId}, 9),
+              (#{createdAt}, #{groupId}, 10),
+              (#{createdAt}, #{groupId}, 11),
+              (#{createdAt}, #{groupId}, 12)
+  </insert>
+
+
+  <update id="addRecommendedSum"
+          parameterType = "map">
+    UPDATE month_expenditure
+    SET recommended_sum = #{sum}
+    WHERE group_id = #{groupId} AND category_id = #{categoryId} AND created_at BETWEEN #{lowBound}::timestamp
+        AND #{highBound}::timestamp;
+  </update>
+
+  <update id="addAmountToCategory"
+          parameterType = "map">
+    UPDATE month_expenditure
+    SET spent_sum = spent_sum + #{sum}
+    WHERE group_id = #{groupId} AND created_at BETWEEN #{lowBound}::timestamp
+        AND #{highBound}::timestamp AND category_id =  #{categoryId};
+  </update>
+
+  <delete id="deleteTransactionById"
+          parameterType = "long">
+    DELETE FROM money_transactions
+    WHERE transaction_id = #{id};
+    <!-- Сделать нормальный ретурнинг bool -->
+  </delete>
+</mapper>

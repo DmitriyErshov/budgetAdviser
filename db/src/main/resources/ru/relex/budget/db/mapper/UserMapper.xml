@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ru.relex.budget.db.mapper.UserMapper">
+
+  <select id="createUser"
+          parameterType="ru.relex.budget.db.model.UserModel"
+          resultType="ru.relex.budget.db.model.UserModel">
+    INSERT INTO users (first_name, last_name, phone, email, username, password, global_role_id)
+    VALUES (#{firstName}, #{lastName}, #{phone}, #{email}, #{username}, #{password}, #{role})
+    RETURNING user_id AS id, created_at
+  </select>
+
+  <update id="setUserCreatedBy"
+          parameterType="long">
+    UPDATE users SET created_by =
+                        CASE #{createdBy}
+                          WHEN 1 THEN null
+                          ELSE #{createdBy}
+                          END
+    WHERE user_id = #{userId};
+  </update>
+
+  <select id="isUserExists"
+          parameterType="long"
+          resultType="boolean">
+    SELECT CASE WHEN EXISTS (
+      SELECT user_id
+      FROM users
+      WHERE user_id = #{id}
+      )
+      THEN CAST(1 AS BIT)
+      ELSE CAST(0 AS BIT) END
+  </select>
+
+  <insert id="addActivationCode"
+          parameterType = "map">
+    INSERT INTO users_activation_codes (user_id, activation_code)
+    VALUES (#{userId}, #{code})
+  </insert>
+
+  <update id="updateUser"
+          parameterType="ru.relex.budget.db.model.UserModel">
+    UPDATE users SET first_name = #{firstName},
+            last_name = #{lastName},
+            email = #{email},
+            phone = #{phone},
+            password = #{password},
+            is_active = #{active},
+            is_locked = #{locked}
+    WHERE user_id = #{id};
+  </update>
+
+  <update id="banUserById"
+          parameterType="long">
+    UPDATE users SET is_locked = TRUE
+    WHERE user_id = #{id};
+  </update>
+
+  <update id="activateAccount"
+          parameterType = "long">
+    UPDATE users SET is_active = TRUE
+    WHERE user_id = #{userId};
+  </update>
+
+  <delete id="deleteUserById"
+          parameterType = "long">
+    DELETE FROM group_members
+    WHERE user_id = #{id};
+
+    DELETE FROM users
+    WHERE user_id = #{id}
+
+    <!-- Сделать нормальный ретурнинг bool -->
+ </delete>
+
+  <delete id="deleteActivationCode"
+          parameterType = "long">
+    DELETE FROM users_activation_codes
+    WHERE user_id = #{id}
+  </delete>
+
+</mapper>

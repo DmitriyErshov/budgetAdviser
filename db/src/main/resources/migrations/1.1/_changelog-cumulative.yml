@@ -1,0 +1,76 @@
+databaseChangeLog:
+  - preConditions:
+      - dbms:
+          type: postgresql
+  - changeSet:
+      id: budget-1-20200725-1309
+      author: andruha.tm
+      comment: Several changes to tables
+      changes:
+        - sqlFile:
+            path: budget-1-20200725-1309.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: budget-1-20200720-2155
+      author: andruha.tm
+      comment: Fill role tables and move is_income attribute to category table
+      changes:
+        - sqlFile:
+            path: budget-1-20200725-1403.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: budget-1-20200727-2359
+      author: Ershov
+      comment: Fix group_membres
+      changes:
+        - sqlFile:
+            path: budget-1-20200727-2359.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: budget-1-29072020-2103
+      author: Ershov
+      comment: add new table for creating diagrams
+      changes:
+        - sqlFile:
+            path: budget-1-29072020-2103.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: budget-1-07082020-1807
+      author: Ershov
+      comment: set default balance in group
+      changes:
+        - sqlFile:
+            path: budget-2-07082020-1807.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: budget-2-08082020-0009
+      author: Ershov
+      comment: add join code
+      changes:
+        - sqlFile:
+            path: budget-2-08082020-0009.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: budget-3-11082020-1247
+      author: Ershov
+      comment: create activation codes table
+      changes:
+        - sqlFile:
+            path: budget-3-11082020-1247.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: budget-3-14082020-1123
+      author: Ershov
+      comment: deleted useless roles
+      changes:
+        - sqlFile:
+            path: budget-3-14082020-1123.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: budget-3-14082020-1221
+      author: Ershov
+      comment: deleted useless roles
+      changes:
+        - sqlFile:
+            path: budget-3-14082020-1221.sql
+            relativeToChangelogFile: true

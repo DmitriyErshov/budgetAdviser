@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - preConditions:
+      - dbms:
+          type: postgresql
+  - changeSet:
+      id: budget-1-20200717-1121
+      author: nskornyakov
+      comment: Create initial information
+      changes:
+        - sqlFile:
+            path: budget-1-20200717-1121.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: budget-1-20200717-1444
+      author: nskornyakov
+      comment: Fill roles tables
+      changes:
+        - sqlFile:
+            path: budget-1-20200717-1444.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: budget-1-20200720-2121
+      author: ershov
+      comment: Create group tables
+      changes:
+        - sqlFile:
+            path: budget-1-20200720-2121.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: budget-1-20200720-2155
+      author: ershov
+      comment: Create transaction tables
+      changes:
+        - sqlFile:
+            path: budget-1-20200720-2155.sql
+            relativeToChangelogFile: true

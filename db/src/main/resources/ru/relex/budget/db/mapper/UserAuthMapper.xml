@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ru.relex.budget.db.mapper.UserAuthMapper">
+
+  <select id="isUserGroupMember"
+          parameterType="long"
+          resultType="boolean">
+     SELECT CASE WHEN EXISTS (
+       SELECT user_id
+       FROM group_members
+       WHERE user_id = #{userId} AND group_id = #{groupId}
+       )
+       THEN CAST(1 AS BIT)
+       ELSE CAST(0 AS BIT) END
+  </select>
+
+  <select id="isUserGroupAdmin"
+          parameterType="long"
+          resultType="boolean">
+    SELECT CASE WHEN EXISTS (
+      SELECT user_id
+      FROM group_members
+      WHERE user_id = #{userId} AND group_id = #{groupId} AND role_id = #{roleAdminId}
+      )
+      THEN CAST(1 AS BIT)
+      ELSE CAST(0 AS BIT) END
+  </select>
+
+</mapper>

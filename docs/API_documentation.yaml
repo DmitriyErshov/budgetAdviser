@@ -1,0 +1,571 @@
+swagger: "2.0"
+info:
+  description: "Budget Advisor"
+  version: "0.1.0"
+  title: "Budget Advisor"
+host: "127.0.0.1:8081"
+basePath: "/api"
+tags:
+  - name: "user"
+    description: "Operations about user"
+  - name: "group"
+    description: "Operations about group"
+schemes:
+  - "https"
+  - "http"
+paths:
+
+  /users:
+
+    get:
+      tags:
+        - "user"
+      summary: "Get all users"
+      operationId: "getUsers"
+      produces:
+        - "application/json"
+      responses:
+        201:
+          description: "User successfully create"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ExistingUser"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+
+    post:
+      tags:
+        - "user"
+      summary: "Create user"
+      operationId: "createUser"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User object that should be created"
+          required: true
+          schema:
+            $ref: "#/definitions/NewUser"
+      responses:
+        201:
+          description: "User successfully create"
+          schema:
+            $ref: "#/definitions/ExistingUser"
+        400:
+          description: "Data is invalid"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ErrorResponse"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        405:
+          description: "Validation exception"
+
+  /users/login:
+
+    get:
+      tags:
+        - "user"
+      summary: "Logs user in"
+      operationId: "LogInUser"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "username"
+          in: "query"
+          required: true
+          type: "string"
+        - name: "password"
+          in: "query"
+          type: "string"
+          required: true
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "Invalid username/password supplied"
+        "404":
+          description: "User not found"
+
+  /users/logout:
+
+    get:
+      tags:
+        - "user"
+      summary: "Logs user out"
+      operationId: "LogOutUser"
+      produces:
+        - "application/json"
+      parameters:
+        []
+      responses:
+        "200":
+          description: "successful operation"
+
+  /users/{id}:
+
+    get:
+      tags:
+        - "user"
+      summary: "Get user by id"
+      description: ""
+      operationId: "getUserById"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "id of user which needs to be fetched. Use 1 for testing"
+          required: true
+          type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ExistingUser"
+        "400":
+          description: "Invalid username supplied"
+        "404":
+          description: "User not found"
+
+    put:
+      tags:
+        - "user"
+      summary: "Update user"
+      description: "This can only be done by the logged in user."
+      operationId: "updateUser"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "id of user which needs to be updated"
+          required: true
+          type: "integer"
+        - in: "body"
+          name: "body"
+          description: "Updated user object"
+          required: true
+          schema:
+            $ref: "#/definitions/UpdatableUser"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ExistingUser"
+        "400":
+          description: "Invalid user supplied"
+        "404":
+          description: "User not found"
+
+    delete:
+      tags:
+        - "user"
+      summary: "Delete user"
+      description: "This can only be done by the logged in user."
+      operationId: "deleteUser"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "id of user which needs to be deleted"
+          required: true
+          type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ExistingUser"
+        "400":
+          description: "Invalid id supplied"
+        "404":
+          description: "User not found"
+
+
+  /users/{id}/groups:
+
+    get:
+      tags:
+        - "user"
+        - "group"
+      summary: "Get user groups"
+      operationId: "getUserGroups"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "id of user"
+          required: true
+          type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ExistingGroup"
+        "400":
+          description: "Invalid user id"
+        "403":
+          description: "Forbidden"
+        "404":
+          description: "user not found"
+
+  /groups:
+
+    post:
+      tags:
+        - "group"
+      summary: "Create group"
+      description: "This can only be done by the logged in user."
+      operationId: "createGroup"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Group object that should be created"
+          required: true
+          schema:
+            $ref: "#/definitions/NewGroup"
+      responses:
+        200:
+          description: "Group successfully create"
+          schema:
+            $ref: "#/definitions/ExistingGroup"
+        400:
+          description: "Data is invalid"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ErrorResponse"
+        401:
+          description: "Unauthorized"
+        404:
+          description: "Forbidden"
+        405:
+          description: "Validation exception"
+
+  /groups/{group_id}:
+
+    get:
+      tags:
+        - "group"
+      summary: "Get group by id"
+      description: ""
+      operationId: "getGroupById"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "group_id"
+          in: "path"
+          description: "The groupId that needs to be fetched. Use 1 for testing"
+          required: true
+          type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ExistingGroup"
+        "400":
+          description: "Invalid groupId supplied"
+        "404":
+          description: "Group not found"
+
+    put:
+      tags:
+        - "group"
+      summary: "Updated group"
+      description: "This can only be done by the logged in group-admin user."
+      operationId: "updateGroup"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "group_id"
+          in: "path"
+          description: "id of group which need to be updated"
+          required: true
+          type: "integer"
+        - in: "body"
+          name: "body"
+          description: "Updated group object"
+          required: true
+          schema:
+            $ref: "#/definitions/UpdatableGroup"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ExistingGroup"
+        "400":
+          description: "Invalid groupId supplied"
+        "404":
+          description: "Group not found"
+        "405":
+          description: "Validation exception"
+
+    delete:
+      tags:
+        - "group"
+      summary: "Delete group"
+      description: "This can only be done by the logged in group-admin user."
+      operationId: "deleteGroup"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "group_id"
+          in: "path"
+          description: "id of group that needs to be deleted"
+          required: true
+          type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ExistingGroup"
+        "400":
+          description: "Invalid groupId supplied"
+        "404":
+          description: "Group not found"
+
+
+  /groups/{group_id}/users:
+
+    get:
+      tags:
+        - "group"
+        - "user"
+      summary: "Get users from group"
+      description: ""
+      operationId: "getUsersFromGroup"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "group_id"
+          in: "path"
+          description: "group id"
+          required: true
+          type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ExistingUser"
+        "400":
+          description: "Invalid groupId supplied"
+        "403":
+          description: "Forbidden"
+        "404":
+          description: "Group not found"
+
+definitions:
+
+  NewUser:
+    type: "object"
+    properties:
+      username:
+        type: "string"
+        minLength: 5
+        maxLength: 64
+        example: "PowerUser678"
+      password:
+        type: "string"
+        minLength: 8
+        maxLength: 128
+        example: "Password"
+      role:
+        type: "string"
+        enum:
+          - ADMIN
+          - USER
+      personalInfo:
+        type: object
+        properties:
+          firstName:
+            type: "string"
+            minLength: 5
+            maxLength: 64
+            example: "John"
+          lastName:
+            type: "string"
+            minLength: 1
+            maxLength: 50
+          email:
+            type: "string"
+            minLength: 5
+          phone:
+            type: "string"
+            maxLength: 15
+
+    # TODO: GroupMember
+
+  UpdatableUser:
+    type: object
+    properties:
+      role:
+        type: string
+        example: ADMIN
+        enum:
+          - ADMIN
+          - USER
+      personalInfo:
+        type: object
+        required:
+          - phone
+          - firstName
+          - lastName
+          - email
+          - status
+        properties:
+          firstName:
+            maxLength: 50
+            minLength: 1
+            type: string
+          lastName:
+            maxLength: 50
+            minLength: 1
+            type: string
+          email:
+            minLength: 5
+            type: string
+          phone:
+            maxLength: 15
+            type: string
+      status:
+        type: object
+        $ref: '#/definitions/UserStatus'
+
+  ExistingUser:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        minimum: 1
+      username:
+        type: "string"
+        minLength: 5
+        maxLength: 64
+        example: "PowerUser678"
+      role:
+        type: "string"
+        example: "ADMIN"
+        enum:
+          - ADMIN
+          - USER
+      personalInfo:
+        type: object
+        properties:
+          firstName:
+            type: "string"
+            minLength: 5
+            maxLength: 64
+            example: "John"
+          lastName:
+            type: "string"
+            minLength: 1
+            maxLength: 50
+          email:
+            type: "string"
+            minLength: 5
+          phone:
+            type: "string"
+            maxLength: 15
+      status:
+        $ref: '#/definitions/UserStatus'
+      createdAt:
+        type: "string"
+        format: "date-time"
+        example: "2020-07-13T10:30:00Z"
+
+  NewGroup:
+    type: "object"
+    properties:
+      groupName:
+        type: "string"
+        minLength: 1
+        maxLength: 100
+        example: "Family budget group"
+      groupAdminId:
+        type: "integer"
+        format: "int64"
+        minimum: 1
+      groupDescription:
+        type: "string"
+        minLength: 5
+        maxLength: 250
+        example: "Ivanov's Family budget group"
+
+  ExistingGroup:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        minimum: 1
+      groupName:
+        type: "string"
+        example: "Family budget group"
+      groupAdminId:
+        type: "integer"
+        format: "int64"
+      groupDescription:
+        type: "string"
+        minLength: 5
+        maxLength: 250
+        example: "Ivanov's Family budget group"
+      createdAt:
+        type: "string"
+        format: "date-time"
+        example: "2020-07-13T10:30:00Z"
+      createdBy:
+        type: "integer"
+        format: "int64"
+        maximum: 1
+
+  UpdatableGroup:
+    type: "object"
+    properties:
+      groupName:
+        type: "string"
+        minLength: 1
+        maxLength: 100
+        example: "Family budget group"
+      groupAdminId:
+        type: "integer"
+        format: "int64"
+        minimum: 1
+      groupDescription:
+        type: "string"
+        minLength: 5
+        maxLength: 250
+        example: "Ivanov's Family budget group"
+
+  UserStatus:
+    type: object
+    properties:
+      isActive:
+        type: boolean
+      isLocked:
+        type: boolean
+
+  ErrorResponse:
+    type: "object"
+    properties:
+      code:
+        type: "string"
+      description:
+        type: "string"
+      payload:
+        type: "object"

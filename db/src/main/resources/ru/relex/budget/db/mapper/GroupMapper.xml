@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ru.relex.budget.db.mapper.GroupMapper">
+
+  <select id="createGroup"
+          parameterType="ru.relex.budget.db.model.GroupModel"
+          resultType="ru.relex.budget.db.model.GroupModel">
+    INSERT INTO groups (group_name, description, created_by, join_code)
+    VALUES (#{groupName}, #{description}, #{createdBy}, #{joinCode})
+    RETURNING group_id AS id, created_at
+  </select>
+
+  <select id="isGroupExists"
+          parameterType="long"
+          resultType="boolean">
+    SELECT CASE WHEN EXISTS (
+      SELECT group_id
+      FROM groups
+      WHERE group_id = #{id}
+      )
+      THEN CAST(1 AS BIT)
+      ELSE CAST(0 AS BIT) END
+  </select>
+
+  <insert id="saveGroupMember" parameterType="map">
+    INSERT INTO group_members (user_id, group_id, role_id)
+    VALUES (#{userId}, #{groupId}, #{roleId})
+  </insert>
+
+  <update id="updateGroup"
+          parameterType="ru.relex.budget.db.model.GroupModel">
+    UPDATE groups SET group_name = #{groupName},
+                     description = #{description}
+    WHERE group_id = #{id};
+  </update>
+
+  <update id="changeGroupBalance"
+          parameterType = "map">
+    UPDATE groups SET balance =
+                        CASE #{isIncome}
+                          WHEN TRUE THEN balance + #{sum}
+                          ELSE balance - #{sum}
+                          END
+    WHERE group_id = #{groupId};
+  </update>
+
+  <delete id="deleteGroupById"
+          parameterType = "long">
+    DELETE FROM group_members
+    WHERE group_id = #{id};
+
+    DELETE FROM money_transactions
+    WHERE group_id = #{id};
+
+    DELETE FROM month_expenditure
+    WHERE group_id = #{id};
+
+    DELETE FROM groups
+    WHERE group_id = #{id};
+    <!-- Сделать нормальный ретурнинг bool -->
+  </delete>
+
+  <delete id="deleteGroupMember"
+          parameterType = "map">
+    DELETE FROM group_members
+    WHERE user_id = #{userId} AND group_id = #{groupId};
+  </delete>
+</mapper>

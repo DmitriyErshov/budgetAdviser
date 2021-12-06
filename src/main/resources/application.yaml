@@ -1,0 +1,26 @@
+server:
+  servlet:
+    context-path: /api
+    session:
+      cookie:
+        http-only: true
+        secure: false
+        name: UBER_T
+        path:
+      persistent: true
+      timeout: 1h
+  port: 8081
+
+spring:
+  liquibase:
+    change-log:  classpath*:migrations/master-changelog.yaml
+    user: postgres
+    url: jdbc:postgresql://localhost:5432/budget
+  datasource:
+    url: jdbc:postgresql://localhost:5432/budget
+    username: postgres
+    password: ${spring.liquibase.password}
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  type-handlers-package: ru.relex.budget.db.handler
