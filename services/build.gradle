@@ -25,6 +25,7 @@ dependencies {
   implementation 'org.hibernate.validator:hibernate-validator:6.1.5.Final'
 
   implementation 'org.projectlombok:lombok:1.18.12'
+
 }
 
 compileJava {

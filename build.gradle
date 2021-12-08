@@ -18,10 +18,10 @@ allprojects {
     mavenCentral()
   }
 
-  java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-  }
+//  java {
+//    sourceCompatibility = JavaVersion.VERSION_11
+//    targetCompatibility = JavaVersion.VERSION_11
+//  }
   dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVer"
     testImplementation "org.junit.jupiter:junit-jupiter-params:$junitVer"
@@ -48,7 +48,6 @@ dependencies {
   implementation "org.springframework:spring-web:5.2.7.RELEASE"
   implementation "org.springframework.security:spring-security-core:5.3.3.RELEASE"
   implementation "javax.validation:validation-api:2.0.1.Final"
-  implementation 'com.google.code.gson:gson:2.2.4'
+  implementation 'com.google.code.gson:gson:2.6.1'
+
 }
-
-
