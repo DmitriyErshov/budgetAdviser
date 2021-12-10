@@ -22,11 +22,16 @@ public enum Role {
       return null;
     }
 
-    for (var value: values()) {
+    for (Role value: values()) {
       if (id.equals(value.id)) {
         return value;
       }
     }
+//    for (var value: values()) {
+//      if (id.equals(value.id)) {
+//        return value;
+//      }
+//    }
 
     return null;
   }
