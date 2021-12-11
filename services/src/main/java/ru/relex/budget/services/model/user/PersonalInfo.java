@@ -8,8 +8,9 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import ru.relex.budget.services.validation.ValidationErrors;
 
-@Value.Immutable
+
 @JsonDeserialize(builder = ImmutablePersonalInfo.Builder.class)
+@Value.Immutable
 public interface PersonalInfo {
 
   @Nullable
