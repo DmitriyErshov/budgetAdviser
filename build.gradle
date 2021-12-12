@@ -1,6 +1,10 @@
-plugins {
-  id 'java'
-}
+//plugins {
+//  id 'java'
+//}
+
+//apply plugin: "net.ltgt.apt"
+apply plugin: 'java'
+apply plugin: 'idea'
 
 ext {
   bootVer = "2.3.1.RELEASE"
@@ -22,6 +26,8 @@ allprojects {
 //    sourceCompatibility = JavaVersion.VERSION_11
 //    targetCompatibility = JavaVersion.VERSION_11
 //  }
+
+
   dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVer"
     testImplementation "org.junit.jupiter:junit-jupiter-params:$junitVer"

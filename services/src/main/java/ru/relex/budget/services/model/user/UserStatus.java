@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.immutables.value.Value;
 //import org.immutables.value.Value;
 
+
 @Value.Immutable
 @Value.Style(defaultAsDefault = true)
 @JsonDeserialize(builder = ImmutableUserStatus.Builder.class)

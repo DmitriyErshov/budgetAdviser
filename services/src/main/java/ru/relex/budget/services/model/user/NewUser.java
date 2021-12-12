@@ -8,6 +8,8 @@ import ru.relex.budget.services.validation.ValidationErrors;
 import javax.validation.constraints.NotNull;
 import java.time.Instant;
 
+
+
 @Value.Immutable
 @JsonDeserialize(builder = ImmutableNewUser.Builder.class)
 @Value.Style(redactedMask = "*****")
