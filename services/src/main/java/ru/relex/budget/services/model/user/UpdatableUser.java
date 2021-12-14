@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 //@Value.Include({ ImmutableUpdatableUser.class })
 @JsonDeserialize(builder = ImmutableUpdatableUser.Builder.class)
 @Value.Enclosing
-@NotNull(message = "blah-blah")
+//@NotNull(message = "blah-blah")
 public interface UpdatableUser extends BaseUser {
 
   String getPassword();

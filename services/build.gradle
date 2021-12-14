@@ -11,8 +11,11 @@ dependencies {
   compileOnly "org.immutables:value-annotations:$immVer"
   compileOnly "org.mapstruct:mapstruct:$msVer"
 
+  compile "com.google.code.findbugs:jsr305:3.0.2"
+
   annotationProcessor "org.immutables:value-processor:$immVer"
   annotationProcessor "org.mapstruct:mapstruct-processor:$msVer"
+
 
   implementation "org.springframework:spring-context:5.2.7.RELEASE"
   //implementation "org.springframework.boot:spring-boot-autoconfigure:2.+"
