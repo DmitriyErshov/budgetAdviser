@@ -1,6 +1,8 @@
 package ru.relex.budget.services.model.user;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 import org.immutables.value.Value;
@@ -12,6 +14,7 @@ import ru.relex.budget.services.validation.ValidationErrors;
 
 @JsonDeserialize(builder = ImmutablePersonalInfo.Builder.class)
 @Value.Immutable
+@NotNull(message = "blah-blah")
 public interface PersonalInfo {
 
   @Nullable

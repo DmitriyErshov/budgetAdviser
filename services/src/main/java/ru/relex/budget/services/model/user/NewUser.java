@@ -13,6 +13,7 @@ import java.time.Instant;
 @Value.Immutable
 @JsonDeserialize(builder = ImmutableNewUser.Builder.class)
 @Value.Style(redactedMask = "*****")
+@NotNull(message = "blah-blah")
 public interface NewUser extends BaseUser {
 
     //@NotNull(message = ValidationErrors.USERNAME_MUST_BE_SET)

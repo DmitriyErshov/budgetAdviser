@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import javax.validation.constraints.NotNull;
+
 
 @Value.Immutable
 //@Value.Style(
@@ -17,6 +19,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 //@Value.Include({ ImmutableUpdatableUser.class })
 @JsonDeserialize(builder = ImmutableUpdatableUser.Builder.class)
 @Value.Enclosing
+@NotNull(message = "blah-blah")
 public interface UpdatableUser extends BaseUser {
 
   String getPassword();
