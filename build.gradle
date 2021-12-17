@@ -62,3 +62,11 @@ dependencies {
 task wrapper(type: Wrapper) {
   gradleVersion = '4.8.1' //version required
 }
+
+jar {
+  manifest {
+    attributes (
+      'Main-Class': 'ru/relex/budget/rest/App.java'
+    )
+  }
+}
