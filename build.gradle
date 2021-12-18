@@ -66,7 +66,7 @@ task wrapper(type: Wrapper) {
 jar {
   manifest {
     attributes (
-      'Main-Class': 'src/main/java/ru/relex/budget/rest/App.java'
+      'Main-Class': 'ru/relex/budget/rest/App'
     )
   }
 }
