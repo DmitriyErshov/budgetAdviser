@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/demo-0.0.1-SNAPSHOT.jar
+web: java -cp target/classes/:target/dependency/* ru/relex/budget/rest/App.java
