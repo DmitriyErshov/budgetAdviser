@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes:target/dependency/* ru/relex/budget/rest/App
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/*.jar
