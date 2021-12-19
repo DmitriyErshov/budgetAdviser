@@ -1,9 +1,11 @@
 plugins {
   id 'java'
+  id 'org.springframework.boot' version '2.0.0.RELEASE'
 }
 
 
 apply plugin: 'java'
+apply plugin: 'io.spring.dependency-management'
 //apply plugin: 'idea'
 
 ext {
@@ -41,7 +43,6 @@ allprojects {
 
     testRuntime "org.junit.jupiter:junit-jupiter-engine:$junitVer"
 
-
   }
   test {
     useJUnitPlatform()
@@ -67,15 +68,9 @@ task wrapper(type: Wrapper) {
   gradleVersion = '4.8.1' //version required
 }
 
-//jar {
-//  manifest {
-//    attributes (
-//      'Main-Class': 'ru.relex.budget.rest.App'
-//    )
-//  }
-//}
 
 
+//это работает
 jar {
   manifest {
     attributes('Main-Class': 'ru.relex.budget.rest.App')
@@ -83,23 +78,10 @@ jar {
   // Include the classpath from the dependencies
   from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     // This help solve the issue with jar lunch
-    {
-      exclude "META-INF/*.SF"
-      exclude "META-INF/*.DSA"
-      exclude "META-INF/*.RSA"
-    }
+//    {
+//      exclude "META-INF/*.SF"
+//      exclude "META-INF/*.DSA"
+//      exclude "META-INF/*.RSA"
+//    }
 }
 
-
-//task fatJar(type: Jar) {
-//  manifest.from jar.manifest
-////    classifier = 'all'
-//  from {
-//    configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) }
-//  } {
-//    exclude "META-INF/*.SF"
-//    exclude "META-INF/*.DSA"
-//    exclude "META-INF/*.RSA"
-//  }
-//  with jar
-//}
