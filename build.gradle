@@ -1,11 +1,11 @@
 plugins {
   id 'java'
-//  id 'org.springframework.boot' version '2.3.6.RELEASE'
+  id 'org.springframework.boot' version '2.0.0.RELEASE'
 }
 
 
 apply plugin: 'java'
-//apply plugin: 'io.spring.dependency-management'
+apply plugin: 'io.spring.dependency-management'
 //apply plugin: 'idea'
 
 ext {
