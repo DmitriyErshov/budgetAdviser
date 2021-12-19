@@ -62,7 +62,7 @@ dependencies {
 
   //
   implementation 'commons-io:commons-io:2.6'
-//  compile "org.springframework.cloud:spring-cloud-dependencies:Greenwich.RELEASE"
+  compile "org.springframework.cloud:spring-cloud-dependencies:Greenwich.RELEASE"
 }
 
 task wrapper(type: Wrapper) {
