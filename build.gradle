@@ -1,9 +1,11 @@
 plugins {
   id 'java'
+
+  //
 }
 
 //apply plugin: "net.ltgt.apt"
-//apply plugin: 'java'
+apply plugin: 'java'
 //apply plugin: 'idea'
 
 ext {
