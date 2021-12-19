@@ -63,6 +63,7 @@ dependencies {
   //
   implementation 'commons-io:commons-io:2.6'
   compile "org.springframework.cloud:spring-cloud-dependencies:Greenwich.RELEASE"
+  compile 'org.springframework.security:spring-security-web:4.0.1.RELEASE'
 }
 
 task wrapper(type: Wrapper) {

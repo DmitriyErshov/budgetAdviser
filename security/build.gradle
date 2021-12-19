@@ -13,6 +13,7 @@ dependencies {
   implementation "org.springframework.security:spring-security-web:$secVer"
   implementation "org.springframework.security:spring-security-config:$secVer"
 
+  compile "org.springframework.security:spring-security-messaging:*"
 
   compileOnly "org.slf4j:slf4j-api:1.7.30"
   compileOnly "com.fasterxml.jackson.core:jackson-databind:2.11.1"
