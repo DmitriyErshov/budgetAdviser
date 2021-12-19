@@ -77,15 +77,13 @@ task wrapper(type: Wrapper) {
 //  }
 //}
 
-//привет
-jar {
+task fatJar(type: Jar) {
   manifest {
-    attributes "Main-Class": "ru.relex.budget.rest.App"
+    attributes 'Main-Class': 'ru.relex.budget.rest.App'
   }
-
-  from {
-    configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-  }
+  baseName = project.name + '-all'
+  from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+  with jar
 }
 
 //task fatJar(type: Jar) {
