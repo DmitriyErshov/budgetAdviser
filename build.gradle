@@ -41,6 +41,7 @@ allprojects {
 
     testRuntime "org.junit.jupiter:junit-jupiter-engine:$junitVer"
 
+
   }
   test {
     useJUnitPlatform()
@@ -57,6 +58,9 @@ dependencies {
   implementation "org.springframework.security:spring-security-core:5.3.3.RELEASE"
   implementation "javax.validation:validation-api:2.0.1.Final"
   implementation 'com.google.code.gson:gson:2.6.1'
+
+  //
+  compile "org.springframework.boot:spring-boot-starter-data-jpa:*"
 }
 
 task wrapper(type: Wrapper) {
