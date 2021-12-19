@@ -1,10 +1,8 @@
 plugins {
   id 'java'
-
-  //
 }
 
-//apply plugin: "net.ltgt.apt"
+
 apply plugin: 'java'
 //apply plugin: 'idea'
 
@@ -62,7 +60,7 @@ dependencies {
   implementation 'com.google.code.gson:gson:2.6.1'
 
   //
-
+  implementation 'commons-io:commons-io:2.6'
 }
 
 task wrapper(type: Wrapper) {
@@ -72,19 +70,21 @@ task wrapper(type: Wrapper) {
 //jar {
 //  manifest {
 //    attributes (
-//      'Main-Class': 'ru/relex/budget/rest/App'
+//      'Main-Class': 'ru.relex.budget.rest.App'
 //    )
 //  }
 //}
 
-task fatJar(type: Jar) {
+
+jar {
   manifest {
     attributes 'Main-Class': 'ru.relex.budget.rest.App'
   }
-  baseName = project.name + '-all'
-  from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-  with jar
+  doFirst {
+    from { configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } }
+  }
 }
+
 
 //task fatJar(type: Jar) {
 //  manifest.from jar.manifest
