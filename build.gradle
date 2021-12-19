@@ -77,7 +77,7 @@ task wrapper(type: Wrapper) {
 //  }
 //}
 
-
+//привет
 jar {
   manifest {
     attributes "Main-Class": "ru.relex.budget.rest.App"
