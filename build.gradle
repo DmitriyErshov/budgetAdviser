@@ -64,6 +64,8 @@ dependencies {
   implementation 'commons-io:commons-io:2.6'
   compile "org.springframework:spring-core:5.2.8.RELEASE"
   compile 'org.springframework.cloud:spring-cloud-starter-config:2.0.0.RELEASE'
+  implementation 'org.springframework.boot:spring-boot-autoconfigure:2.3.1.RELEASE'
+
 //  compile 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
   //compile "org.springframework.cloud:spring-cloud-dependencies:Greenwich.RELEASE"
   //compile 'org.springframework.security:spring-security-web:4.0.1.RELEASE'
