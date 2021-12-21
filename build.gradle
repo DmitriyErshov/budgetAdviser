@@ -9,7 +9,7 @@ apply plugin: 'io.spring.dependency-management'
 //apply plugin: 'idea'
 
 ext {
-  bootVer = "2.2.0.RELEASE"
+  bootVer = "2.3.1.RELEASE"
   junitVer = "5.6.2"
   mockitoVer = "3.4.0"
 }
