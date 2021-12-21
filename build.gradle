@@ -84,7 +84,7 @@ dependencyManagement {
 
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '4.8.1' //version required
+  gradleVersion = '5.0' //version required
 }
 
 
