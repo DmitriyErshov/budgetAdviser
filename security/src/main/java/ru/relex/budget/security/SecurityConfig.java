@@ -43,7 +43,7 @@ import java.io.IOException;
   securedEnabled = true
 )
 @ComponentScan(basePackageClasses = SecurityConfig.class)
-@EnableAutoConfiguration
+//@EnableAutoConfiguration
 public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
     private final UserDetailsService userDetailsService;
