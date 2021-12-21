@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Import;
 import ru.relex.budget.services.ServicesConfiguration;
 import ru.relex.budget.security.SecurityConfig;
 
-@SpringBootApplication
+@SpringBootApplication(proxyBeanMethods = false)
 @Import({
   ServicesConfiguration.class,
   SecurityConfig.class
